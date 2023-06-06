@@ -1,7 +1,7 @@
 #include "Shader.h"
 
-#include "stb/stb_image.h"
 #include "glad/glad.h"
+#include "stb/stb_image.h"
 
 #include <iostream>
 #include <fstream>
