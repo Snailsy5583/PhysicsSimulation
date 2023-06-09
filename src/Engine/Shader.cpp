@@ -82,6 +82,24 @@ namespace Engine {
         UnBind();
     }
 
+    void Shader::SetUniform(const char *name, int value) const {
+        Bind();
+        glUniform1i(GetUniformLocation(name), value);
+        UnBind();
+    }
+
+    void Shader::SetUniform(const char *name, bool value) const {
+        Bind();
+        glUniform1i(GetUniformLocation(name), value);
+        UnBind();
+    }
+
+    void Shader::SetUniform(const char *name, float value) const {
+        Bind();
+        glUniform1f(GetUniformLocation(name), value);
+        UnBind();
+    }
+
     void Shader::SetUniformVec(int loc, int size, float value[]) const {
         Bind();
 
@@ -99,6 +117,11 @@ namespace Engine {
         }
 
         UnBind();
+    }
+
+    void Shader::SetUniformVec(const char *name, int size, float *value) const {
+        int loc = GetUniformLocation(name);
+        SetUniformVec(loc, size, value);
     }
 
     void Shader::SetUniformMat(int loc, int size, float **value) const {
@@ -189,8 +212,6 @@ namespace Engine {
             // Exit with failure.
             glDeleteShader(shader); // Don't leak the shader.
         }
-
-// 		std::cout << isCompiled << std::endl;
 
         return !isCompiled;
     }

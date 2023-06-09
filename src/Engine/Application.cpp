@@ -11,7 +11,7 @@ namespace Engine {
 
     Application::Application(unsigned int width, unsigned int height,
                              const char *title) {
-        m_DeltaTime = 0;
+        m_DeltaTime = 1/60.f;
         if (!glfwInit())
             std::cout << "GLFW INIT FAILED\n";
 
@@ -35,9 +35,8 @@ namespace Engine {
 
             glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 
-            m_MainWindow->Update();
-
             Update(m_DeltaTime);
+            m_MainWindow->Update();
 
             m_DeltaTime = (
                 (float) std::chrono::duration_cast<std::chrono::microseconds>

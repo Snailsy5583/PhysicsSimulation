@@ -3,24 +3,28 @@
 #include <string>
 #include <vector>
 
+
 namespace Engine {
 
     class Texture;
+    class Vec3;
 
     class Shader {
     public:
-        Shader(const char *vertShaderSource = NULL,
-               const char *fragShaderSource = NULL);
+        Shader(const char *vertShaderSource = nullptr,
+               const char *fragShaderSource = nullptr);
 
         static Shader Compile(const char *vertPath, const char *fragPath);
 
         void SetUniform(int loc, int value) const;
-
         void SetUniform(int loc, bool value) const;
-
         void SetUniform(int loc, float value) const;
+        void SetUniform(const char *name, int value) const;
+        void SetUniform(const char *name, bool value) const;
+        void SetUniform(const char *name, float value) const;
 
         void SetUniformVec(int loc, int size, float value[]) const;
+        void SetUniformVec(const char *name, int size, float value[]) const;
 
         void SetUniformMat(int loc, int size, float **value) const;
 

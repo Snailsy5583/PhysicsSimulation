@@ -3,9 +3,8 @@
 #include "CirclesApp.h"
 
 int main() {
-    CirclesApp sim(800, 800, "Simulation", 10);
+    CirclesApp sim(1000, 1000, "Simulation", 100);
 
     sim.Run();
-
     return 0;
 }

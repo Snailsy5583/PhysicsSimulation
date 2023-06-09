@@ -1,24 +1,29 @@
 #pragma once
 
 
+#include <sstream>
+#include <cmath>
 #include "Shader.h"
 
 namespace Engine {
 
     struct Vec3 {
-        float x, y, z;
+        float x=0, y=0, z=0;
 
-        Vec3 operator+(Vec3 other) {
-            return {other.x+x, other.y+y, other.z+z};
+        Vec3 operator+(const Vec3 other) const {
+            return {x+other.x, y+other.y, z+other.z};
         }
-        Vec3 operator-(Vec3 other) {
-            return {other.x-x, other.y-y, other.z-z};
+        Vec3 operator-(const Vec3 other) const {
+            return {x-other.x, y-other.y, z-other.z};
         }
-        Vec3 operator*(float scalar) {
+        Vec3 operator*(const float scalar) const {
             return {scalar*x, scalar*y, scalar*z};
         }
-        Vec3 operator/(float scalar) {
-            return {scalar / x, scalar / y, scalar / z};
+        friend Vec3 operator*(const float scalar, const Vec3 vec) {
+            return {scalar*vec.x, scalar*vec.y, scalar*vec.z};
+        }
+        Vec3 operator/(const float scalar) const {
+            return {x/scalar, y/scalar, z/scalar};
         }
 
         void operator+=(Vec3 other) {
@@ -42,6 +47,20 @@ namespace Engine {
 
         float* toArr() {
             return reinterpret_cast<float *>(this);
+        }
+
+        std::string toString() const {
+            std::stringstream ss;
+            ss << "(" << x << ", " << y << ", " << z << ")";
+            return ss.str();
+        }
+
+        float magnitude() const {
+            return sqrt(x*x + y*y + z*z);
+        }
+
+        Vec3 normalized() const {
+            return (*this)/magnitude();
         }
     };
 

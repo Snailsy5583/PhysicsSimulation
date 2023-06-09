@@ -14,6 +14,7 @@ namespace Engine {
 
         m_Window = glfwCreateWindow(m_WindowWidth, m_WindowHeight,
                                     m_WindowTitle, NULL, NULL);
+        glfwSetWindowPos(m_Window, 500, 30);
         glfwMakeContextCurrent(m_Window);
 
         glfwWindowHint(GLFW_OPENGL_PROFILE, GLFW_OPENGL_CORE_PROFILE);
@@ -21,7 +22,7 @@ namespace Engine {
         glfwWindowHint(GLFW_VERSION_MAJOR, 3);
         glfwWindowHint(GLFW_VERSION_MINOR, 3);
 
-//		glfwSwapInterval(1);
+		glfwSwapInterval(1);
 
         if (!m_Window) {
             std::cout << "FAILED TO CREATE WINDOW\n";
@@ -97,8 +98,6 @@ namespace Engine {
     bool Window::OnEvent_WindowResize(WindowResizedEvent &e) {
         m_WindowWidth = e.GetWidth();
         m_WindowHeight = e.GetHeight();
-        std::cout << "Event: Window Resized (" << m_WindowWidth << ", "
-                  << m_WindowHeight << ")" << std::endl;
         return true;
     }
 

@@ -5,6 +5,7 @@
 #pragma once
 
 #include <functional>
+#include <memory>
 
 #include "Component.h"
 #include "Renderer.h"
@@ -15,15 +16,20 @@ namespace Engine {
     public:
         GameObject(RendererObject rendererObject, Vec3 pos, float rot);
 
-        void AddComponent(const Component& component);
+        void AddComponent(std::unique_ptr<Component> component);
 
-        void Move(Vec3 deltaPos, float deltaRot);
+        virtual void Move(Vec3 deltaPos, float deltaRot);
 
         virtual void Update(float deltaTime);
 
-        void SetUpdateCallback(std::function<void(float)> callback);
+        void Render();
+
+        void SetUpdateCallback(std::function<void(float, GameObject*)>
+            callback);
 
     public:
+        inline RendererObject& GetRendererObject()
+        { return m_RendererObject; }
         inline const Vec3& GetPosition() const { return m_Position; }
         inline float GetRotation() const { return m_Rotation; }
         inline float GetScale   () const { return m_Scale;    }
@@ -31,9 +37,9 @@ namespace Engine {
     protected:
         RendererObject m_RendererObject;
 
-        std::vector<Component> m_Components;
+        std::vector<std::unique_ptr<Component>> m_Components;
 
-        std::function<void(float)> m_UpdateCallback;
+        std::function<void(float, GameObject*)> m_UpdateCallback;
 
         Vec3 m_Position;
         float m_Rotation;
@@ -44,16 +50,19 @@ namespace Engine {
     public:
         Quad(float sideLength, Vec3 pos, float rot);
 
-    private:
+        void Move(Vec3 deltaPos, float deltaRot) override;
+
+    protected:
         float m_SideLength;
     };
 
-    class Circle : public GameObject {
+    class Circle : public Quad {
     public:
         Circle(float radius, Vec3 pos, float rot);
 
+        float GetPosition() const { return m_Radius; }
     private:
-        float m_Radius;
+        float &m_Radius;
     };
 
 } // Engine

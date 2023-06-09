@@ -6,7 +6,7 @@ set(CMAKE_CXX_STANDARD 17)
 set(__solver
         PhysicsComponent.cpp
         PhysicsComponent.h
-)
+        PhysicsSolver.cpp PhysicsSolver.h)
 
 add_library(${PROJECT_NAME} ${__solver})
 

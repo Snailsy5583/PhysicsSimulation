@@ -1,3 +1,4 @@
+#include <iostream>
 #include "glad/glad.h"
 
 #include "Renderer.h"
@@ -6,7 +7,7 @@ namespace Engine {
 
 
     const float Renderer::m_QuadVerts[] = {
-        //    x	 ,	     y   ,       z ,	  u  ,     v   ,
+        //     x  ,	      y  ,      z  ,	   u ,      v ,
          -0.5f, -0.5f, 0.0f,  0.f, 0.f,
           0.5f, -0.5f, 0.0f,  1.f, 0.f,
          -0.5f, 0.5f,0.0f, 0.f, 1.f,
@@ -119,7 +120,8 @@ namespace Engine {
         glGetBufferSubData(GL_ARRAY_BUFFER, 0, obj.bufferSize,
                            data);
 
-        return nullptr;
+        return data;
+//        return nullptr;
     }
 
 
