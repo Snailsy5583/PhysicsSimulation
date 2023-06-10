@@ -10,6 +10,8 @@ namespace Engine {
             outY = m_MousePosY;
         }
 
+        int GetMouseButton() { return m_Button; }
+
     protected:
         MouseButtonEvent(int button, float mouseX, float mouseY)
             : m_Button(button), m_MousePosX(mouseX), m_MousePosY(mouseY) {}

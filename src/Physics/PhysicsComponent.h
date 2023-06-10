@@ -16,6 +16,10 @@ namespace Physics {
 
         void UpdateComponent(float deltaTime) override;
 
+        inline void SetKinematic(bool isKinematic) {
+            m_IsKinematic = isKinematic;
+        };
+
     private:
         void ApplyPhysics();
 
@@ -23,6 +27,8 @@ namespace Physics {
         float m_Mass;
         float m_Radius;
         float m_coFriction{};
+
+        bool m_IsKinematic=false;
 
         float m_OldDeltaTime = 1/60.f;
 

@@ -22,7 +22,7 @@ namespace Engine {
         glfwWindowHint(GLFW_VERSION_MAJOR, 3);
         glfwWindowHint(GLFW_VERSION_MINOR, 3);
 
-		glfwSwapInterval(1);
+		glfwSwapInterval(0);
 
         if (!m_Window) {
             std::cout << "FAILED TO CREATE WINDOW\n";

@@ -9,6 +9,8 @@
 
 namespace Engine {
 
+#define BIND_EVENT_FUNC(x, obj) std::bind(&x, obj, std::placeholders::_1)
+
     class Application {
     public:
         Application(unsigned int width, unsigned int height, const char *title);

@@ -10,7 +10,7 @@
 #include "Engine/GameObject.h"
 
 namespace Physics {
-    static Engine::Vec3 GRAVITY = {0, -.981f, 0};
+    static Engine::Vec3 GRAVITY = {0, -9.81f*0.38f, 0};
 
     class PhysicsSolver {
     public:
@@ -42,7 +42,7 @@ namespace Physics {
         // should own that and shouldn't use shared_ptr because Cherno said
         // not to
         std::vector<PhysicsComponent*> m_PhysicsComponents;
-        int m_NumOfSubsteps=25;
+        int m_NumOfSubsteps=20;
     };
 
 }

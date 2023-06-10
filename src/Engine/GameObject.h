@@ -34,6 +34,15 @@ namespace Engine {
         inline float GetRotation() const { return m_Rotation; }
         inline float GetScale   () const { return m_Scale;    }
 
+        template<class T> T* TryGetComponent() {
+            for (auto &comp : m_Components) {
+                T *specifiedComp = dynamic_cast<T*>(comp.get());
+                if (specifiedComp)
+                    return specifiedComp;
+            }
+            return nullptr;
+        }
+
     protected:
         RendererObject m_RendererObject;
 
@@ -60,7 +69,7 @@ namespace Engine {
     public:
         Circle(float radius, Vec3 pos, float rot);
 
-        float GetPosition() const { return m_Radius; }
+        float GetRadius() const { return m_Radius; }
     private:
         float &m_Radius;
     };

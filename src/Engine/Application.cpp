@@ -5,8 +5,6 @@
 
 #include <fstream>
 
-#define BIND_EVENT_FUNC(x, obj) std::bind(&x, obj, std::placeholders::_1)
-
 namespace Engine {
 
     Application::Application(unsigned int width, unsigned int height,

@@ -28,6 +28,11 @@ namespace Physics {
         deltaTime /= (float) m_NumOfSubsteps;
         for (int i = 0; i < m_NumOfSubsteps; i++) {
             for (auto comp: m_PhysicsComponents) {
+                if (comp->m_IsKinematic) {
+                    // to prevent it from going bonkers when it is released
+                    comp->m_OldPosition = comp->m_Position;
+                    continue;
+                }
                 // Need this in case the component gets deleted and is
                 // a wildcard ptr
                 try {
@@ -38,7 +43,6 @@ namespace Physics {
 
                 } catch (std::exception &e) {
                     std::cout << e.what() << std::endl;
-                    std::cout << "sus2\n";
 
                     // remove the item that caused this
                     std::remove(m_PhysicsComponents.begin(),
@@ -71,16 +75,15 @@ namespace Physics {
                 Engine::Vec3 moveDelta = deltaPos.normalized() *
                                          -(deltaPos.magnitude() -
                                           (comp->m_Radius + other->m_Radius));
-
+                float compFactor = comp->m_Mass/(comp->m_Mass+other->m_Mass);
                 comp->m_Owner->Move(
-                    moveDelta,
+                    moveDelta*compFactor,
                     0
                 );
-                moveDelta = deltaPos.normalized() *
-                            (deltaPos.magnitude() -
-                             (comp->m_Radius + other->m_Radius));
+
+                float otherFactor = -(other->m_Mass/(comp->m_Mass+other->m_Mass));
                 other->m_Owner->Move(
-                    moveDelta,
+                    moveDelta*otherFactor,
                     0
                 );
             }
@@ -118,8 +121,8 @@ namespace Physics {
             comp->m_Position.x - comp->m_Radius < -1.f ||
             comp->m_Position.x + comp->m_Radius >  1.f)
         {
-            comp->m_OldPosition = comp->m_Position;
-            comp->m_Acceleration = {};
+//            comp->m_OldPosition = comp->m_Position;
+//            comp->m_Acceleration = {};
             comp->m_Owner->Move(delta, 0);
         }
     }
